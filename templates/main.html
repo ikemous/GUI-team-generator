@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <!-- Meta Data -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Page with information about the team" />
+    <meta name="keywords" content="About Page, Ike, Adrian, Barranco, Team, Github, Employee, ID, Manager, Intern, Engineer" />
+    <meta name="author" content="Ikemous" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- End Meta Data -->
+
+    <!-- Page Tab Title -->
+    <title>My Team</title>
+
+    <!-- CSS And Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/c502137733.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Page Jumbotron Title -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 jumbotron mb-3 team-heading">
+                <h1 class="text-center">My Team</h1>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Jumbotron Title -->
+
+    <!-- Start Container -->
+    <div class="container">
+
+        <!-- Grid to Hold All Employee Cards -->
+        <div class="ui stackable four column grid centered">
+            {{ team }}
+        </div>
+        <!-- End grid to hold all employee cards -->
+
+    </div>
+    <!-- End Container -->
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!-- Intern Employee Card -->
+<div class="card employee-card column">
+    <!-- Intern Card Header -->
+    <div class="card-header">
+        <h2 class="card-title">{{ name }}</h2>
+        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>{{ role }}</h3>
+    </div>
+    <!-- Intern Card Body -->
+    <div class="card-body">
+        <ul class="list-group">
+            <!-- Intern ID -->
+            <li class="list-group-item">ID: {{ id }}</li>
+            <!-- Intern Email -->
+            <li class="list-group-item">Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
+            <!-- Intern School -->
+            <li class="list-group-item">School: {{ school }}</li>
+        </ul>
+    </div>
+</div>
+<!-- End Intern Employee Card -->

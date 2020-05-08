@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <!-- Meta Data -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Page with information about the team" />
+    <meta name="keywords" content="About Page, Ike, Adrian, Barranco, Team, Github, Employee, ID, Manager, Intern, Engineer" />
+    <meta name="author" content="Ikemous" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- End Meta Data -->
+
+    <!-- Page Tab Title -->
+    <title>My Team</title>
+
+    <!-- CSS And Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <link rel="stylesheet" tpye="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/c502137733.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <!-- Page Jumbotron Title -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 jumbotron mb-3 team-heading">
+                <h1 class="text-center">My Team</h1>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Jumbotron Title -->
+
+    <!-- Start Container -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <h2>Team List</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">Ike Barranco - Engineer</li>
+                </ul>
+                <form>
+                    <button type="submit" class="btn btn-primary mb-2" id="finish">Finish</button>
+                </form>
+            
+            </div>
+
+            <div class="col-sm-8">
+                <h2>Add New Team Member</h2>
+                <Form>
+                    <div class="form-group">
+                        <label for="employeeRole">Please Select Employees Role:</label>
+                        <select class="form-control" id="employeeRole">
+                          <option>Manager</option>
+                          <option>Engineer</option>
+                          <option>Intern</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeName">Please Enter Employee Name:</label>
+                        <input type="text" class="form-control" id="employeeName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeID">Please Enter Employee ID:</label>
+                        <input type="text" class="form-control" id="employeeID" placeholder="1,2,3">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeEmail">Please Enter Employee Email Address:</label>
+                        <input type="email" class="form-control" id="employeeEmail" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeExtraInfo">Please Enter Employee <span id="specialInfo">Office Number</span>:</label>
+                        <input type="text" class="form-control" id="employeeExtraInfo" placeholder="1,2,3">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" id="add">Add Employee</button>
+                </Form>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Container -->
+
+    <script>
+        const employeeList = [];
+        $("#add").on("click", function(event){
+            event.preventDefault();
+
+        });
+
+        $("#employeeRole").on("click", function(){
+            console.log($("#employeeRole").val());
+            switch($("#employeeRole").val())
+            {
+                case "Manager":
+                    $("#specialInfo").text("Office Number");
+                    $("#employeeExtraInfo").attr("placeholder", "1,2,3");
+                    break;
+                case "Engineer":
+                    $("#specialInfo").text("GitHub Username");
+                    $("#employeeExtraInfo").attr("placeholder", "ikemous");
+                    break;
+                case "Intern":
+                    $("#specialInfo").text("School Name");
+                    $("#employeeExtraInfo").attr("placeholder", "UofU/University Of Utah");
+                    break;
+                default:
+                    break;
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>
