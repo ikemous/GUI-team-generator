@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <link rel="stylesheet" tpye="text/css" href="./style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/c502137733.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -43,10 +43,11 @@
     <div class="container">
 
         <div class="row">
+
             <div class="col-sm-4">
 
                 <h2>Team List</h2>
-                <ul class="list-group">
+                <ul class="list-group" id="employeeList">
                     <li class="list-group-item">Ike Barranco - Engineer</li>
                 </ul>
                 <form>
@@ -57,7 +58,7 @@
 
             <div class="col-sm-8">
                 <h2>Add New Team Member</h2>
-                <Form>
+                <form method="POST" role="form">
                     <div class="form-group">
                         <label for="employeeRole">Please Select Employees Role:</label>
                         <select class="form-control" id="employeeRole">
@@ -83,19 +84,52 @@
                         <input type="text" class="form-control" id="employeeExtraInfo" placeholder="1,2,3">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2" id="add">Add Employee</button>
-                </Form>
+                </form>
             </div>
-        </div>
+        </div>  
 
     </div>
     <!-- End Container -->
 
-    <script>
+    <script defer>
         const employeeList = [];
+
         $("#add").on("click", function(event){
             event.preventDefault();
+            const employeeInfo = {
+                name: $("#employeeName").val().trim(),
+                id: $("#employeeID").val().trim(),
+                email: $("#employeeEmail").val().trim(),
+                extraInfo: $("#employeeExtraInfo").val().trim(),
+                employeeRole: $("#employeeRole").val()
+            }
+            // employeeRole: $("#employeeRole").val()
+            // console.log([employeeInfo, $("#employeeRole").val()])
+
+            $.post("/api/employees", employeeInfo)
+                .then(function(data) {
+                    
+            });
+
+            // alert("Employee Added");
 
         });
+
+        function updateList()
+        {
+            $.get("/api/employees", function(employees){
+                const list = $("#employeeList");
+                console.log(employees);
+                for(const employee of employees)
+                {
+                    console.log(employee);
+                    const newListItem = $("<li>");
+                    newListItem.addClass("list-group-item");
+                    newListItem.text(`${employee.name} - ${employee.role}`);
+                    list.append(newListItem);
+                }
+            });
+        }
 
         $("#employeeRole").on("click", function(){
             console.log($("#employeeRole").val());
@@ -117,7 +151,6 @@
                     break;
             }
         });
-
 
     </script>
 
