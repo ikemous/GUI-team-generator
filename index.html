@@ -19,21 +19,41 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
-    <link rel="stylesheet" tpye="text/css" href="./style.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Assets//style.css">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+       
 
 </head>
 
 <body>
 
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navBar" aria-controls="navBar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navBar">
+          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/team">My Team</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+
     <!-- Page Jumbotron Title -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+                <h1 class="text-center">My Team Generator</h1>
             </div>
         </div>
     </div>
@@ -48,9 +68,9 @@
 
                 <h2>Team List</h2>
                 <ul class="list-group" id="employeeList">
-                    <li class="list-group-item">Ike Barranco - Engineer</li>
+                    <li class="list-group-item">Ike Barranco - Engineer<span class="pull-right"><button type="button" class="btn btn-primary btn-sm listBtn">edit</button></span></li>
                 </ul>
-                <form>
+                <form action="./pages/team">
                     <button type="submit" class="btn btn-primary mb-2" id="finish">Finish</button>
                 </form>
             
@@ -83,15 +103,57 @@
                         <label for="employeeExtraInfo">Please Enter Employee <span id="specialInfo">Office Number</span>:</label>
                         <input type="text" class="form-control" id="employeeExtraInfo" placeholder="1,2,3">
                     </div>
+
                     <button type="submit" class="btn btn-primary mb-2" id="add">Add Employee</button>
                 </form>
             </div>
         </div>  
 
     </div>
-    <!-- End Container -->
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="employee-name">Ike Barranco</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="employee-role" class="col-form-label">Role:</label>
+                  <input type="text" class="form-control" id="employee-role">
+                </div>
+                <div class="form-group">
+                  <label for="employee-id" class="col-form-label">ID:</label>
+                  <input type="text" class="form-control" id="employee-id">
+                </div>
+                <div class="form-group">
+                  <label for="employee-email" class="col-form-label">Email:</label>
+                  <input type="text" class="form-control" id="employee-email">
+                </div>
+                <div class="form-group">
+                  <label for="employee-extra" class="col-form-label"><span id="extra-info">Office Number</span></label>
+                  <input type="text" class="form-control" id="employee-extra">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Delete</button>
+              <button type="button" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script defer>
+
+        
+
         const employeeList = [];
 
         $("#add").on("click", function(event){
@@ -103,30 +165,52 @@
                 extraInfo: $("#employeeExtraInfo").val().trim(),
                 employeeRole: $("#employeeRole").val()
             }
-            // employeeRole: $("#employeeRole").val()
-            // console.log([employeeInfo, $("#employeeRole").val()])
+            $.post("/api/employees", employeeInfo).then(updateList());
+        });
 
-            $.post("/api/employees", employeeInfo)
-                .then(function(data) {
-                    
+        $("#employeeList").on("click", ".listBtn ", event =>{
+            console.log(event.target);
+            alert("test");
+            const employeeId = $(event.target).data("id");
+            // const id = $("#employee-id").attr("data-id");
+            $.get("/api/employees/" + employeeId, function(data){
+                console.log(data);
             });
+        });
 
-            // alert("Employee Added");
+        $("#finish").on("click", event =>{
 
+            $.get("/team", function(){
+
+            });
         });
 
         function updateList()
         {
             $.get("/api/employees", function(employees){
                 const list = $("#employeeList");
-                console.log(employees);
+                list.html("");
                 for(const employee of employees)
                 {
-                    console.log(employee);
                     const newListItem = $("<li>");
                     newListItem.addClass("list-group-item");
                     newListItem.text(`${employee.name} - ${employee.role}`);
                     list.append(newListItem);
+                    
+                    const listSpan = $("<span>");
+                    listSpan.addClass("pull-right");
+                    newListItem.append(listSpan);
+
+                    // data-toggle="modal" data-target="#editModal" data-whatever="@getbootstrap"
+
+                    const listItemButton = $("<button>");
+                    listItemButton.attr("data-id", employee.id);
+                    listItemButton.attr("data-toggle", "modal");
+                    listItemButton.attr("data-target", "#editModal");
+                    listItemButton.attr("data-whatever", "@getbootstrap");
+                    listItemButton.text("Edit");
+                    listItemButton.addClass("btn btn-primary btn-sm listBtn");
+                    listSpan.append(listItemButton);
                 }
             });
         }
@@ -152,6 +236,7 @@
             }
         });
 
+        updateList();
     </script>
 
 </body>

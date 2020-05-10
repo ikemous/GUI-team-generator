@@ -8,14 +8,29 @@
     padding-left: 0px!important;
     padding-right: 0px!important;
 }
+.navbar{
+    background-color: #143D59!important;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.navbar ul li a{
+    color: orange!important;
+}
 /* End global stylings */
 
 /* Page Title Stylings */
 .jumbotron{
-    background-color: #143D59;
-    color: #F4B41A;
+    background-color: #143D59!important;
+    color: #F4B41A!important;
+    border-radius: 0px!important;
 }
 /* end Page Title Stylings */
+
+/* Employee List Stylings */
+.listBtn{
+    float: right!important;
+}
+/* End Employee List Stylings */
 
 /* Employee Card Stylings */
 .card-header{
