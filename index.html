@@ -126,11 +126,11 @@
               <form>
                 <div class="form-group">
                   <label for="employee-role" class="col-form-label">Role:</label>
-                  <input type="text" class="form-control" id="employee-role">
+                  <input type="text" class="form-control" id="employee-role" disabled>
                 </div>
                 <div class="form-group">
                   <label for="employee-id" class="col-form-label">ID:</label>
-                  <input type="text" class="form-control" id="employee-id">
+                  <input type="text" class="form-control" id="employee-id" disabled>
                 </div>
                 <div class="form-group">
                   <label for="employee-email" class="col-form-label">Email:</label>
@@ -165,7 +165,14 @@
                 extraInfo: $("#employeeExtraInfo").val().trim(),
                 employeeRole: $("#employeeRole").val()
             }
+
+            $("#employeeName").val("");
+            $("#employeeID").val("");
+            $("#employeeEmail").val("");
+            $("#employeeExtraInfo").val("");
+
             $.post("/api/employees", employeeInfo).then(updateList());
+
         });
 
         $("#employeeList").on("click", ".listBtn ", event =>{
@@ -173,8 +180,28 @@
             alert("test");
             const employeeId = $(event.target).data("id");
             // const id = $("#employee-id").attr("data-id");
-            $.get("/api/employees/" + employeeId, function(data){
-                console.log(data);
+            $.get("/api/employees/" + employeeId, function(employee){
+                console.log(employee);
+                $("#employee-name").text(employee.name);
+                $("#employee-role").val(employee.role);
+                $("#employee-id").val(employee.id);
+                $("#employee-email").val(employee.email);
+                switch(employee.role)
+                {
+                    case "Engineer":
+                        $("#extra-info").text("Github UserName:");
+                        $("#employee-extra").val(employee.github);
+                        break;
+                    case "Intern":
+                        $("#extra-info").text("School Name:");
+                        $("#employee-extra").val(employee.school);
+                        break;
+                    case "Manager":
+                        $("#extra-info").text("Office Number:");
+                        $("#employee-extra").val(employee.officeNumber);
+                        break;
+                }
+                // $("#employee-extra").text(employee.extraInfo);
             });
         });
 
