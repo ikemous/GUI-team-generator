@@ -53,6 +53,36 @@ server.post("/api/employees", function(req, res) {
     employees.push(app.createGUIEmployee(newEmployee)); 
 });
 
+server.post("/api/update/employee", function(req, res) {
+    const employeeInfo = req.body;
+    for(const currentEmployee of employees)
+        if(employeeInfo.id === currentEmployee.id)
+        {
+            currentEmployee.email = employeeInfo.email;
+            switch(currentEmployee.role)
+            {
+                case "Manager":
+                    currentEmployee.officeNumber = employeeInfo.extraInfo;
+                    break;
+                case "Intern":
+                    currentEmployee.school = employeeInfo.extraInfo;
+                    break;
+                case "Engineer":
+                    currentEmployee.github = employeeInfo.extraInfo;
+                    break;
+            }
+        }
+});
+
+server.post("/api/delete/employee", function(req, res) {
+    const employeeInfo = req.body;
+    for(let i = 0; i < employees.length; i++)
+    {
+        employees.splice(i,1);
+    }
+});
+
+
 // Starts the server to begin listening
 // =============================================================
 server.listen(PORT, function() {

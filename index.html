@@ -111,8 +111,6 @@
 
     </div>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -143,8 +141,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Delete</button>
-              <button type="button" class="btn btn-primary">Update</button>
+              <button type="button" class="btn btn-secondary" id="delete" data-dismiss="modal">Delete</button>
+              <button type="button" class="btn btn-primary" id="update" data-dismiss="modal">Update</button>
             </div>
           </div>
         </div>
@@ -152,9 +150,21 @@
 
     <script defer>
 
-        
+        $("#delete").on("click", event =>{
+            const employeeId = $("#employee-id").val();
+            $.post("/api/delete/employee", employeeId).then(updateList());
 
-        const employeeList = [];
+        });
+
+        $("#update").on("click", event=>{
+            const employeeInfo = {
+                id:  $("#employee-id").val(),
+                email:  $("#employee-email").val(),
+                extraInfo:  $("#employee-extra").val()
+            }
+
+            $.post("/api/update/employee", employeeInfo).then(updateList());
+        })
 
         $("#add").on("click", function(event){
             event.preventDefault();
@@ -169,15 +179,13 @@
             $("#employeeName").val("");
             $("#employeeID").val("");
             $("#employeeEmail").val("");
-            $("#employeeExtraInfo").val("");
+            $("#employeeExtraInfo").val(""); 
 
             $.post("/api/employees", employeeInfo).then(updateList());
 
         });
 
         $("#employeeList").on("click", ".listBtn ", event =>{
-            console.log(event.target);
-            alert("test");
             const employeeId = $(event.target).data("id");
             // const id = $("#employee-id").attr("data-id");
             $.get("/api/employees/" + employeeId, function(employee){
