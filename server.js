@@ -92,11 +92,10 @@ server.post("/api/delete/employee", function(req, res) {
     }
 });
 
-// get path to return error page if user tries to traverse to anything else
+// get path to return error page if user tries to traverse to
 server.get("*", function(req,res){
     res.sendFile(path.join(__dirname, "/pages/page-not-found.html"));
 });
-
 
 // Starts the server to begin listening
 // =============================================================
