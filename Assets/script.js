@@ -1,7 +1,11 @@
-$("#delete").on("click", event =>{
-    const employeeId = $("#employee-id").val();
-    $.post("/api/delete/employee", employeeId).then(updateList());
 
+$("#delete").on("click", event =>{
+    const employeeInfo = {
+        id:  $("#employee-id").val(),
+        email:  $("#employee-email").val(),
+        extraInfo:  $("#employee-extra").val()
+    }
+    $.post("/api/delete/employee", employeeInfo).then(updateList());
 });
 
 $("#update").on("click", event=>{
@@ -14,22 +18,42 @@ $("#update").on("click", event=>{
     $.post("/api/update/employee", employeeInfo).then(updateList());
 })
 
-$("#add").on("click", function(event){
+$("#add").on("click", event =>{
     event.preventDefault();
-    const employeeInfo = {
-        name: $("#employeeName").val().trim(),
-        id: $("#employeeID").val().trim(),
-        email: $("#employeeEmail").val().trim(),
-        extraInfo: $("#employeeExtraInfo").val().trim(),
-        employeeRole: $("#employeeRole").val()
-    }
 
-    $("#employeeName").val("");
-    $("#employeeID").val("");
-    $("#employeeEmail").val("");
-    $("#employeeExtraInfo").val(""); 
+    let idUsed = false;
+    let eID = $("#employeeID").val().trim();
 
-    $.post("/api/employees", employeeInfo).then(updateList());
+    $.get("/api/employees", employees =>{
+        for(const employee of employees)
+            if(employee.id === eID)
+                idUsed = true;
+
+        if(idUsed === false && $("#employeeID").val().trim() != "")
+        {
+    
+            const employeeInfo = {
+                name: $("#employeeName").val().trim(),
+                id: $("#employeeID").val().trim(),
+                email: $("#employeeEmail").val().trim(),
+                extraInfo: $("#employeeExtraInfo").val().trim(),
+                employeeRole: $("#employeeRole").val()
+            }
+        
+            $("#employeeName").val("");
+            $("#employeeID").val("");
+            $("#employeeEmail").val("");
+            $("#employeeExtraInfo").val(""); 
+        
+            $.post("/api/employees", employeeInfo).then(updateList());
+        }
+        else
+        {
+            alert("Please Enter text inside the ID field and don't reuse id's");
+        }
+
+    });
+
 
 });
 
@@ -37,7 +61,6 @@ $("#employeeList").on("click", ".listBtn ", event =>{
     const employeeId = $(event.target).data("id");
     // const id = $("#employee-id").attr("data-id");
     $.get("/api/employees/" + employeeId, function(employee){
-        console.log(employee);
         $("#employee-name").text(employee.name);
         $("#employee-role").val(employee.role);
         $("#employee-id").val(employee.id);
@@ -57,15 +80,12 @@ $("#employeeList").on("click", ".listBtn ", event =>{
                 $("#employee-extra").val(employee.officeNumber);
                 break;
         }
-        // $("#employee-extra").text(employee.extraInfo);
     });
 });
 
 $("#finish").on("click", event =>{
-
-    $.get("/team", function(){
-
-    });
+    $.post("/create/teamFile");
+    alert("Team File has been created!!!!");
 });
 
 function updateList()
@@ -98,8 +118,7 @@ function updateList()
     });
 }
 
-$("#employeeRole").on("click", function(){
-    console.log($("#employeeRole").val());
+$("#employeeRole").on("click", event=>{ 
     switch($("#employeeRole").val())
     {
         case "Manager":

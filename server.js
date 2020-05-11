@@ -7,7 +7,24 @@ const app = require("./lib/app");
 // Sets up the Express App
 // =============================================================
 const server = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+
+// const errorHandler = require('express-error-handler'),
+//   handler = errorHandler({
+//     static: {
+//       '404': path.join(__dirname,'/pages/page-not-found.html')
+//     }
+//   });
+
+// // After all your routes...
+// // Pass a 404 into next(err)
+// server.use( errorHandler.httpError(404) );
+
+// // // Handle all unhandled errors:
+// server.use( handler );
+
+
 
 const employees = [
 ];
@@ -18,21 +35,16 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use('/Assets', express.static(__dirname + "/Assets"));
 
-// Basic route that sends the user first to the AJAX Page
-server.get("/", function(req, res) {
-    //Intialize 
-    res.sendFile(path.join(__dirname, "index.html"));
+server.get("/", (req,res) =>{
+    res.sendFile(path.join(__dirname, "index.html"))
 });
 
-// Basic route that sends the user first to the AJAX Page
-server.get("/team", function(req, res) {
-    app.createFile(employees);
-});
-
-server.get("/pages/team", function(req, res){
-    //Intialize 
+server.get("/pages/team", (req,res) =>{
     res.sendFile(path.join(__dirname, "/pages/team.html"));
-})
+
+});
+
+
 
 // Basic route that sends the user first to the AJAX Page
 server.get("/api/employees", function(req, res) {
@@ -46,6 +58,10 @@ server.get("/api/employees/:employeeId", (req, res)=>{
             return res.json(currentEmployee);
 
     return res.json(false);
+});
+
+server.post("/create/teamFile", (req,res) =>{
+    app.createFile(employees);
 });
 
 server.post("/api/employees", function(req, res) {
@@ -78,8 +94,16 @@ server.post("/api/delete/employee", function(req, res) {
     const employeeInfo = req.body;
     for(let i = 0; i < employees.length; i++)
     {
-        employees.splice(i,1);
+        console.log(employeeInfo.id);
+        console.log(employees[i]);
+        console.log(employeeInfo.id == employees[i].id);
+        if(employeeInfo.id == employees[i].id)
+            employees.splice(i,1);
     }
+});
+
+server.get("*", function(req,res){
+    res.sendFile(path.join(__dirname, "/pages/page-not-found.html"));
 });
 
 

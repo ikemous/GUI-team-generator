@@ -18,6 +18,10 @@
 }
 /* End global stylings */
 
+.sadFace{
+    font-size: 200px!important;
+}
+
 /* Page Title Stylings */
 .jumbotron{
     background-color: #143D59!important;
@@ -31,6 +35,12 @@
     float: right!important;
 }
 /* End Employee List Stylings */
+
+/* Employee information Modal */
+#delete{
+    background-color: red!important;
+}
+/* End Employee information Modal */
 
 /* Employee Card Stylings */
 .card-header{
